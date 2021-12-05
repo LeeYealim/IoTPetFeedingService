@@ -1,0 +1,56 @@
+package com.amazonaws.lambda.demo;
+
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
+import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+
+public class getPetUserHandler implements RequestHandler<Object, String> {
+	
+	private DynamoDB dynamoDb;
+
+    @Override
+    public String handleRequest(Object input, Context context) {
+    	this.initDynamoDbClient();
+        context.getLogger().log("Input: " + input);      
+		
+		Table table = dynamoDb.getTable("Pet_User");
+		
+		String id = "admin";
+		
+		GetItemSpec spec = new GetItemSpec().withPrimaryKey("id", id);
+		Item outcome = null;
+		try {
+		    System.out.println("Attempting to read the item...");
+		    outcome = table.getItem(spec);
+		    System.out.println("GetItem succeeded: " + outcome);
+		
+		}
+		catch (Exception e) {
+		    System.err.println("Unable to read item ");
+		    System.err.println(e.getMessage());
+		}
+
+        // TODO: implement your handler
+        //return ""+outcome.toString();
+		return outcome.toJSONPretty();
+    }
+    
+    private void initDynamoDbClient() {
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("ap-northeast-2").build();
+
+        this.dynamoDb = new DynamoDB(client);
+    }
+
+}

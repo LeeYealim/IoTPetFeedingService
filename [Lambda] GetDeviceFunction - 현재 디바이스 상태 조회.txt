@@ -1,0 +1,32 @@
+package com.amazonaws.lambda.demo;
+
+import com.amazonaws.services.iotdata.AWSIotData;
+import com.amazonaws.services.iotdata.AWSIotDataClientBuilder;
+import com.amazonaws.services.iotdata.model.GetThingShadowRequest;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+public class GetDeviceHandler implements RequestHandler<Event, String> {		// 핸들러리퀘스트에 Event 형 객체가 들어옴. Event 객체는 device라는 String 타입 필드를 가진 클래스.
+
+    @Override
+    public String handleRequest(Event event, Context context) {
+    	
+    	// standard() : 모든 기본값이 설정된 빌더의 새 인스턴스를 만듦
+    	// build() : 현재 빌더 구성을 사용하여 AWSIotData의 동기식 구현을 구성함
+    	// 섀도우 검색, 업데이트, 삭제할 수 있는 듯
+        AWSIotData iotData = AWSIotDataClientBuilder.standard().build();	// AWSIotData 객체를 얻음
+              
+        // 사물의 섀도우 리퀘스트 객체를 얻는 듯
+        GetThingShadowRequest getThingShadowRequest  = new GetThingShadowRequest().withThingName(event.device);
+        
+        // 요청보내기 ??
+        iotData.getThingShadow(getThingShadowRequest);
+        
+        // Q. iotData.getThingShadow(getThingShadowRequest) 이 부분이 이미 있는데 왜 다시 하지 ??
+        return new String(iotData.getThingShadow(getThingShadowRequest).getPayload().array());
+    }
+}
+
+class Event {
+    public String device;
+}
