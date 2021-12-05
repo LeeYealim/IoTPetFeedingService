@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>스마트 배식</title>
+
+        <!-- JQuery 라이브러리 설정 -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="style.css">
+        
+        <!--icon-->
+        <script src="https://kit.fontawesome.com/b2aa12ea51.js" crosso></script>
+    </head>
+    <body>
+        <!--이부분 다시 수정-->
+        <span>
+        <i class="fas fa-home" onclick="window.location.href='./homepage.html'" style="font-size: 100px;" ></i>
+        </span>
+        <div class="title">
+            <h1>기록조회</h1>
+            <hr class="title_underline">
+        </div>
+        
+        <div class="contents">
+            <div>
+            <button class="historycheckpage_button" onclick="window.location.href='./log_feed.html'">배식기록 조회하기</button> <!--VisitHistoryCheck()함수변경-->
+
+            <button class="historycheckpage_button" onclick="window.location.href='./log_issue.html'">이슈기록 조회하기</button> <!--함수 구현해야함!! -->
+
+            </div>
+            <div>
+            <button class="historycheckpage_button" onclick="window.location.href='./log_environment.html'">온습도 조회하기</button>
+
+            <button class="historycheckpage_button" onclick="window.location.href='./log_quantity.html'">남은 사료잔량 확인하기</button>
+        </div>
+        </div>
+
+        <div>
+            <table id="VisitHistory_log"></table>
+        </div>
+
+    </body>
+</html>

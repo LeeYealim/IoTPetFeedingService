@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        .login-body{
+            background:#C4DEEE !important
+        }
+        .user{
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+        .login-button{
+            margin-top: 50px;
+        }
+    </style>
+
+
+</head>
+
+<body class="login-body">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">IoT 원격 사료 배식 서비스</h1>
+                                    </div>
+                                    <form class="user" action="#" target="iframe1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="input_id" placeholder="ID를 입력하세요...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="input_password" placeholder="Password를 입력하세요...">
+                                        </div>
+
+                                        <button class="btn btn-primary btn-user btn-block login-button" onclick="login()">Login</button>
+
+                                    </form>
+                                    <iframe name="iframe1" style="display:none"></iframe>   <!-- form 태그 페이지 이동 방지 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+        function login(){
+            console.log("login() 호출");
+
+            let id = $('#input_id').val();
+            let password = $('#input_password').val();
+
+            console.log("id:"+id+" password:"+password);
+
+            let uri = 'https://3fpdmaspi2.execute-api.ap-northeast-2.amazonaws.com/pet/devices/MKR2/login?';       
+            uri += 'id=' + id + '&password=' + password;
+
+            $.ajax(uri, {
+                method: 'GET',
+                contentType: "application/json",
+
+                success: function (data, status, xhr) {
+                        var result = JSON.parse(data);
+                        console.log("결과 : " + result["data"]);
+
+                        if(result["data"] == 'true'){
+                            location.href='homepage.html';
+                        }
+                        else{
+                            alert("아이디와 비밀번호를 확인하세요.");
+                        }
+                },
+                error: function(xhr,status,e){
+                        alert("error");
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

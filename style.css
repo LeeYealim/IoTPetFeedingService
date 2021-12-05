@@ -1,0 +1,19 @@
+/*body*/
+body {background-color: #D9F1F1; text-align: center;}
+
+/*div*/
+div {margin:2%; padding:2%;}
+.title {background-color: #B6E3E9; color:#A077FF; margin:2%; padding:2%;}
+.contents {font-size:20px;}
+/*hr*/
+.title_underline {width:40%; height:1%;}
+
+/*button*/
+.homepage_button {background-color:#C4DEEE; color:#9979C1; width:30%; padding:3%; border-style:none; border-radius:30px; font-size:20px; font-weight:bold;}
+.alarmsettingpage_button {background-color:#C4DEEE; color:#9979C1; width:15%; padding:2%; border-style:none; border-radius:30px; font-size:20px; font-weight:bold;}
+.historycheckpage_button {background-color:#C4DEEE; color:#9979C1; width:40%; padding:3%; border-style:none; border-radius:30px; font-size:20px; font-weight:bold;}
+
+.container1{
+    margin:0%;
+    padding: 1%;
+}
